@@ -1,15 +1,17 @@
 package com.example.CourseWork.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Optional;
 
-public class MedicalQueue {
+public class MedicalQueue implements Serializable {
     private String doctorName;          // прізвище доктора - хазяїна
     private String specialisation;
     private int cabinet;                // номер кабінету прийому
-    private int currentNum = 0;         // поточний номер черги
+    private int currentNum = 0;         // поточний номер черги при додаванні
     private int maxLength = 10;         // максимальна довжина черги
     private boolean closed = false;     // стан черги (відкрита по дефолту)
+    private Record servedPatient;       // пацієнт на прийомі
     private LinkedList<Record> list;
 
 
@@ -31,12 +33,20 @@ public class MedicalQueue {
         return doctorName;
     }
 
+    public Record getServedPatient() {
+        return servedPatient;
+    }
+
     public int getCabinet() {
         return cabinet;
     }
 
     public String getSpecialisation() {
         return specialisation;
+    }
+
+    public LinkedList<Record> getList(){
+        return list;
     }
 
     // заняття місця у черзі
@@ -54,7 +64,7 @@ public class MedicalQueue {
 
     // команда «наступний» (видалити з голови черги) - викликати пацієнта на прийом
     public void next() {
-        list.removeFirst();
+        servedPatient = list.removeFirst();
     }
 
     // видалити з черги заданого пацієнта

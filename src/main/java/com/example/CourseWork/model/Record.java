@@ -1,6 +1,8 @@
 package com.example.CourseWork.model;
 
-public class Record {
+import java.io.Serializable;
+
+public class Record implements Serializable {
     private String name;
     private int numInQueue;
     private String phone;
