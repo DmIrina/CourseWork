@@ -11,22 +11,25 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Optional;
 
-@WebServlet(name = "QueueService", value = "/queueService")
-public class QueueService extends HttpServlet {
+@WebServlet(name = "RemovePatient", value = "/removePatient")
+public class RemovePatient extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
+    // видалити з черги пацієнтів за позначеними номерами у черзі
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String[] ids = request.getParameterValues("id");
         MQList mqList = MQList.getInstance();
         String username = String.valueOf(request.getSession().getAttribute("username"));
         Optional<MedicalQueue> queue = mqList.getQueueByDoctor(username);
-        if (request.getParameter("next") != null) {
-            queue.ifPresent(MedicalQueue::next);
-        } else if (request.getParameter("close") != null) {
-            queue.ifPresent(MedicalQueue::close);
+        if (ids != null && ids.length > 0) {
+            for (String item: ids) {
+                int num = Integer.parseInt(item);
+                queue.ifPresent(q -> q.removeByNum(num));
+            }
         }
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("e://model.dat"))) {
@@ -34,6 +37,7 @@ public class QueueService extends HttpServlet {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+
         request.getSession().setAttribute("queue", queue.get());
         getServletContext().getRequestDispatcher("/WEB-INF/view/queueManaging.jsp").forward(request, response);
     }

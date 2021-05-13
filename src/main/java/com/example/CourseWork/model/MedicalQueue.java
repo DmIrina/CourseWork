@@ -69,12 +69,14 @@ public class MedicalQueue implements Serializable {
 
     // видалити з черги заданого пацієнта
     public void remove(String name) {
-        Record patient = findByName(name).get();                // todo переделать после optional
-        if (patient != null) {
-            list.remove(patient);
-        } else {
-            throw new NullPointerException();
-        }
+        Optional<Record> patient = findByName(name);
+        patient.ifPresent(p -> list.remove(p));
+    }
+
+    // видалити з черги пацієнта за номером у черзі
+    public void removeByNum(int num){
+        Optional<Record> patient = findByNum(num);
+        patient.ifPresent(p -> list.remove(p));
     }
 
     // закрити чергу від можливості подальших записів
@@ -84,10 +86,15 @@ public class MedicalQueue implements Serializable {
 
     // перегляд інформації про своє місце в черзі
     public Optional<Record> findByName(String name) {
-        Optional<Record> result = list.stream()
+        return list.stream()
                 .filter(r -> r.getName().equals(name))
                 .findFirst();
-        return result;
+    }
+
+    public Optional<Record> findByNum(int num) {
+        return list.stream()
+                .filter(r -> r.getNumInQueue()==num)
+                .findFirst();
     }
 
     // чи відкрита черга для запису?

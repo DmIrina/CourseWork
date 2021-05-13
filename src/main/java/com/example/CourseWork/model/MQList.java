@@ -12,11 +12,11 @@ public class MQList implements Serializable {
 
     private ArrayList<MedicalQueue> list;
 
-    public static MQList getInstance(){
+    public static MQList getInstance() {
         return instance;
     }
 
-    private MQList(){
+    private MQList() {
         list = new ArrayList<>();
     }
 
@@ -25,10 +25,9 @@ public class MQList implements Serializable {
         instance = this;
     }
 
-    private Object readResolve()  {
+    private Object readResolve() {
         return instance;
     }
-
 
     public Optional<MedicalQueue> getQueueByDoctor(String doctorName) {
         return list.stream()
@@ -42,18 +41,18 @@ public class MQList implements Serializable {
                 .findFirst();
     }
 
-    public ArrayList<MedicalQueue> getOpenQueues(){
+    public ArrayList<MedicalQueue> getOpenQueues() {
         return (ArrayList<MedicalQueue>) list.stream()
                 .filter(MedicalQueue::isOpen)
                 .collect(Collectors.toList());
     }
 
-    public void closeQueueByDoctor(String doctorName){
+    public void closeQueueByDoctor(String doctorName) {
         getQueueByDoctor(doctorName).ifPresent(MedicalQueue::close);
     }
 
-    public boolean createQueue(String doctorName, String specialisation, int cabinet, int maxLength){
-        if (!getQueueByCabinet(cabinet).isPresent()){
+    public boolean createQueue(String doctorName, String specialisation, int cabinet, int maxLength) {
+        if (!getQueueByCabinet(cabinet).isPresent()) {
             list.add(new MedicalQueue(doctorName, specialisation, cabinet, maxLength));
             return true;
         }

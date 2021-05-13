@@ -37,12 +37,26 @@
         У черзі <c:out value="${sessionScope.queue.list.size()}"/> пацієнтів
     </c:otherwise>
 </c:choose>
-<ul>
-    <c:forEach var="patient" items="${sessionScope.queue.list}">
-        <li><c:out value="${patient.numInQueue}"/> <c:out value="${patient.name}"/> <c:out
-                value="${patient.phone}"/></li>
-    </c:forEach>
-</ul>
+<%--<ul>--%>
+<%--    <c:forEach var="patient" items="${sessionScope.queue.list}">--%>
+<%--        <li><c:out value="${patient.numInQueue}"/> <c:out value="${patient.name}"/> <c:out--%>
+<%--                value="${patient.phone}"/></li>--%>
+<%--    </c:forEach>--%>
+<%--</ul>--%>
+
+<form action="removePatient" method="Post">
+    <table>
+        <c:forEach items="${sessionScope.queue.list}" var="patient">
+            <tr>
+                <td><input type="checkbox" name="id" value="${patient.numInQueue}"/></td>
+                <td>${patient.numInQueue}</td>
+                <td>${patient.name}</td>
+                <td>${patient.phone}</td>
+            </tr>
+        </c:forEach>
+    </table>
+    <input type="submit" value="Видалити пацієнта з черги"/>
+</form>
 
 <form action="queueService" method="Post">
     <br><br>

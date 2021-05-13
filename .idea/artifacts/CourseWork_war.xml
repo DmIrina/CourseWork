@@ -9,11 +9,6 @@
     </properties>
     <root id="archive" name="CourseWork-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="CourseWork:war exploded" />
-      <element id="directory" name="WEB-INF">
-        <element id="directory" name="lib">
-          <element id="library" level="project" name="jstl:jstl:1.2" />
-        </element>
-      </element>
     </root>
   </artifact>
 </component>
