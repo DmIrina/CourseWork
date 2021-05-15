@@ -22,7 +22,7 @@ public class Login extends HttpServlet {
         }
 
 
-//        model.createQueue("Tom", "fff", 67, 5);
+//        model.createQueue("Tom", "fff", "67a", 5);
 //        MedicalQueue tomQ = model.getQueueByDoctor("Tom").get();
 //        tomQ.addLast("A", "65636-2342");
 //        tomQ.addLast("B", "636-52342");
@@ -31,8 +31,6 @@ public class Login extends HttpServlet {
 //        tomQ.addLast("V", "2222-57");
 //        tomQ.addLast("N", "3333-57");
 //        tomQ.addLast("M", "4444-57");
-//        model.createQueue("Jerry", "fff", 54, 2);
-//        model.createQueue("Levi", "gg", 67, 16);
 //
 //        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("e://model.dat"))) {
 //            oos.writeObject(model);

@@ -7,7 +7,7 @@ import java.util.Optional;
 public class MedicalQueue implements Serializable {
     private String doctorName;          // прізвище доктора - хазяїна
     private String specialisation;
-    private int cabinet;                // номер кабінету прийому
+    private String cabinet;                // номер кабінету прийому
     private int currentNum = 0;         // поточний номер черги при додаванні
     private int maxLength = 10;         // максимальна довжина черги
     private boolean closed = false;     // стан черги (відкрита по дефолту)
@@ -16,7 +16,7 @@ public class MedicalQueue implements Serializable {
 
 
     // створення нової черги, максимальна кількість пацієнтів - 10
-    public MedicalQueue(String doctorName, String specialisation, int cabinet) {
+    public MedicalQueue(String doctorName, String specialisation, String cabinet) {
         this.list = new LinkedList<>();
         this.doctorName = doctorName;
         this.specialisation = specialisation;
@@ -24,7 +24,7 @@ public class MedicalQueue implements Serializable {
     }
 
     // створення нової черги, максимальна кількість пацієнтів задається в параметрі maxLength
-    public MedicalQueue(String doctorName, String specialisation, int cabinet, int maxLength) {
+    public MedicalQueue(String doctorName, String specialisation, String cabinet, int maxLength) {
         this(doctorName, specialisation, cabinet);
         this.maxLength = maxLength;
     }
@@ -33,11 +33,15 @@ public class MedicalQueue implements Serializable {
         return doctorName;
     }
 
+    public int getMaxLength() {
+        return maxLength;
+    }
+
     public Record getServedPatient() {
         return servedPatient;
     }
 
-    public int getCabinet() {
+    public String getCabinet() {
         return cabinet;
     }
 
@@ -60,6 +64,10 @@ public class MedicalQueue implements Serializable {
         } else {
             return 0;
         }
+    }
+
+    public int getLength(){
+        return list.size();
     }
 
     // команда «наступний» (видалити з голови черги) - викликати пацієнта на прийом

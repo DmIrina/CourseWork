@@ -35,9 +35,9 @@ public class MQList implements Serializable {
                 .findFirst();
     }
 
-    public Optional<MedicalQueue> getQueueByCabinet(int cabinet) {
+    public Optional<MedicalQueue> getQueueByCabinet(String cabinet) {
         return list.stream()
-                .filter(medicalQueue -> medicalQueue.getCabinet() == cabinet)
+                .filter(medicalQueue -> medicalQueue.getCabinet().equals(cabinet))
                 .findFirst();
     }
 
@@ -51,7 +51,7 @@ public class MQList implements Serializable {
         getQueueByDoctor(doctorName).ifPresent(MedicalQueue::close);
     }
 
-    public boolean createQueue(String doctorName, String specialisation, int cabinet, int maxLength) {
+    public boolean createQueue(String doctorName, String specialisation, String cabinet, int maxLength) {
         if (!getQueueByCabinet(cabinet).isPresent()) {
             list.add(new MedicalQueue(doctorName, specialisation, cabinet, maxLength));
             return true;
