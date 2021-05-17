@@ -49,7 +49,7 @@ public class MedicalQueue implements Serializable {
         return specialisation;
     }
 
-    public LinkedList<Record> getList(){
+    public LinkedList<Record> getList() {
         return list;
     }
 
@@ -66,10 +66,6 @@ public class MedicalQueue implements Serializable {
         }
     }
 
-    public int getLength(){
-        return list.size();
-    }
-
     // команда «наступний» (видалити з голови черги) - викликати пацієнта на прийом
     public void next() {
         servedPatient = list.removeFirst();
@@ -82,7 +78,7 @@ public class MedicalQueue implements Serializable {
     }
 
     // видалити з черги пацієнта за номером у черзі
-    public void removeByNum(int num){
+    public void removeByNum(int num) {
         Optional<Record> patient = findByNum(num);
         patient.ifPresent(p -> list.remove(p));
     }
@@ -101,8 +97,23 @@ public class MedicalQueue implements Serializable {
 
     public Optional<Record> findByNum(int num) {
         return list.stream()
-                .filter(r -> r.getNumInQueue()==num)
+                .filter(r -> r.getNumInQueue() == num)
                 .findFirst();
+    }
+
+    public Optional<Record> getPatient(String name) {
+        return list.stream()
+                .filter(record -> record.getName().equals(name))
+                .findFirst();
+    }
+
+    public int getNumInQueue(String name) {
+        int num = 0;
+        Optional<Record> patient = getPatient(name);
+        if (patient.isPresent()) {
+            num = patient.get().getNumInQueue();
+        }
+        return num;
     }
 
     // чи відкрита черга для запису?

@@ -41,6 +41,25 @@ public class MQList implements Serializable {
                 .findFirst();
     }
 
+    public ArrayList<MedicalQueue> getQueuesWithPatient(String name){
+        ArrayList<MedicalQueue> patientList = new ArrayList<>();
+        for (MedicalQueue queue : list) {
+            Optional<Record> patient = queue.findByName(name);
+            if (patient.isPresent()) {
+                patientList.add(queue);
+            }
+        }
+        return patientList;
+    }
+
+    public ArrayList<MedicalQueue> getQueuesWithoutPatient(String name){
+        ArrayList<MedicalQueue> queuesWithoutPatient;
+        queuesWithoutPatient = list.stream()
+                .filter(queue -> !queue.getPatient(name).isPresent())
+                .collect(Collectors.toCollection(ArrayList::new));
+        return queuesWithoutPatient;
+    }
+
     public ArrayList<MedicalQueue> getOpenQueues() {
         return (ArrayList<MedicalQueue>) list.stream()
                 .filter(MedicalQueue::isOpen)

@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @WebServlet(name = "Login", value = "/login")
@@ -52,6 +53,7 @@ public class Login extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("username", username);
         session.setAttribute("role", user);
+
         if (user.equals("doctor")) {
             Optional<MedicalQueue> optQueue = model.getQueueByDoctor(username);
             if (optQueue.isPresent()) {
@@ -60,6 +62,12 @@ public class Login extends HttpServlet {
             } else {
                 getServletContext().getRequestDispatcher("/WEB-INF/view/queueCreation.jsp").forward(request, response);
             }
+        } else {
+            ArrayList<MedicalQueue> patientList = model.getQueuesWithPatient(username);
+            ArrayList<MedicalQueue> noPatientList = model.getQueuesWithoutPatient(username);
+            session.setAttribute("patientList", patientList);
+            session.setAttribute("noPatientList", noPatientList);
+            getServletContext().getRequestDispatcher("/WEB-INF/view/patientInfo.jsp").forward(request, response);
         }
         int k = 1;
     }

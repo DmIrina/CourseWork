@@ -15,6 +15,11 @@
 
 <body>
 <h1>У вас немає черг на сьогодні!</h1>
+
+<div class="w3-container w3-padding">
+    Лікар: <c:out value="${sessionScope.username}"/><br>
+</div>
+
 <form action="createQueue" method="Post">
     <label>Максимальна кількість пацієнтів у черзі: </label>
     <select name="maxLength">
@@ -43,5 +48,10 @@
     </datalist>
     <input type="submit" name="create" value="Створити чергу">
 </form>
+<div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">
+    <form action="index.jsp">
+        <button class="w3-btn w3-round-large w3-light-grey" type="submit">Повернутися до головної сторінки</button>
+    </form>
+</div>
 </body>
 </html>

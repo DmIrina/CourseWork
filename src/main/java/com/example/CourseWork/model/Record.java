@@ -26,10 +26,6 @@ public class Record implements Serializable {
         return numInQueue;
     }
 
-    public void setNumInQueue(int num){
-        this.numInQueue = num;
-    }
-
     public String getPhone() {
         return phone;
     }

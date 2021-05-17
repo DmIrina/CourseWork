@@ -24,9 +24,8 @@ public class CreateQueue extends HttpServlet {
         int maxLength = Integer.parseInt(request.getParameter("maxLength"));
         String specialisation = request.getParameter("specialisation");
         mqList.createQueue(username, specialisation, cabinet, maxLength);
-        request.getSession().setAttribute("cabinet", cabinet);
-        request.getSession().setAttribute("maxLength", maxLength);
-        request.getSession().setAttribute("specialisation", specialisation);
+        Optional<MedicalQueue> queue = mqList.getQueueByDoctor(username);
+        request.getSession().setAttribute("queue", queue.get());
         getServletContext().getRequestDispatcher("/WEB-INF/view/queueManaging.jsp").forward(request, response);
     }
 }
