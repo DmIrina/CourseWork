@@ -1,14 +1,13 @@
 package com.example.CourseWork.controller;
 
+import com.example.CourseWork.helpers.Utils;
 import com.example.CourseWork.model.MQList;
 import com.example.CourseWork.model.MedicalQueue;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Optional;
 
 @WebServlet(name = "RemovePatient", value = "/removePatient")
@@ -31,13 +30,7 @@ public class RemovePatient extends HttpServlet {
                 queue.ifPresent(q -> q.removeByNum(num));
             }
         }
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("e://model.dat"))) {
-            oos.writeObject(mqList);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-
+        Utils.save(mqList);
         request.getSession().setAttribute("queue", queue.get());
         getServletContext().getRequestDispatcher("/WEB-INF/view/queueManaging.jsp").forward(request, response);
     }

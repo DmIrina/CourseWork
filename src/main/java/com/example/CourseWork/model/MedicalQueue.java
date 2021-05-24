@@ -53,10 +53,14 @@ public class MedicalQueue implements Serializable {
         return list;
     }
 
+    public int getCurrentNum(){
+        return currentNum;
+    }
+
     // заняття місця у черзі
-    public int addLast(String name, String phone) {
+    public int addLast(String name) {
         if (closed == false) {
-            list.addLast(new Record(name, phone, ++currentNum));
+            list.addLast(new Record(name, ++currentNum));
             if (currentNum == maxLength) {
                 closed = true;
             }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/CourseWork/controller/CreateQueue.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/CourseWork/controller/Login.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/CourseWork/controller/PatientApply.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/CourseWork/controller/QueueService.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/CourseWork/controller/RemovePatient.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/CourseWork/helpers/Utils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/CourseWork/model/MQList.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/CourseWork/model/MedicalQueue.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/CourseWork/model/Record.java" charset="UTF-8" />
+  </component>
+</project>

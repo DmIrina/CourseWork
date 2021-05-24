@@ -1,5 +1,6 @@
 package com.example.CourseWork.controller;
 
+import com.example.CourseWork.helpers.Utils;
 import com.example.CourseWork.model.MQList;
 import com.example.CourseWork.model.MedicalQueue;
 
@@ -23,9 +24,14 @@ public class CreateQueue extends HttpServlet {
         String cabinet = request.getParameter("cabinet");
         int maxLength = Integer.parseInt(request.getParameter("maxLength"));
         String specialisation = request.getParameter("specialisation");
-        mqList.createQueue(username, specialisation, cabinet, maxLength);
-        Optional<MedicalQueue> queue = mqList.getQueueByDoctor(username);
-        request.getSession().setAttribute("queue", queue.get());
-        getServletContext().getRequestDispatcher("/WEB-INF/view/queueManaging.jsp").forward(request, response);
+        MedicalQueue queue = mqList.createQueue(username, specialisation, cabinet, maxLength);
+        Utils.save(mqList);
+        if (queue != null) {
+            request.getSession().setAttribute("queue", queue);
+            getServletContext().getRequestDispatcher("/WEB-INF/view/queueManaging.jsp").forward(request, response);
+        } else {
+            request.getSession().setAttribute("repeatCreation", true);
+            getServletContext().getRequestDispatcher("/WEB-INF/view/queueCreation.jsp").forward(request, response);
+        }
     }
 }

@@ -12,9 +12,9 @@ public class Record implements Serializable {
         this.phone = phone;
     }
 
-    public Record(String name, String phone, int numInQueue) {
+    public Record(String name, int numInQueue) {
         this.name = name;
-        this.phone = phone;
+       // this.phone = phone;
         this.numInQueue = numInQueue;
     }
 

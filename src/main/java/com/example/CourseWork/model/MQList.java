@@ -1,8 +1,8 @@
 package com.example.CourseWork.model;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
+import com.example.CourseWork.helpers.Utils;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,6 +49,7 @@ public class MQList implements Serializable {
                 patientList.add(queue);
             }
         }
+        //Utils.save(this);
         return patientList;
     }
 
@@ -57,6 +58,7 @@ public class MQList implements Serializable {
         queuesWithoutPatient = list.stream()
                 .filter(queue -> !queue.getPatient(name).isPresent())
                 .collect(Collectors.toCollection(ArrayList::new));
+       // Utils.save(this);
         return queuesWithoutPatient;
     }
 
@@ -70,15 +72,13 @@ public class MQList implements Serializable {
         getQueueByDoctor(doctorName).ifPresent(MedicalQueue::close);
     }
 
-    public boolean createQueue(String doctorName, String specialisation, String cabinet, int maxLength) {
-        if (!getQueueByCabinet(cabinet).isPresent()) {
-            list.add(new MedicalQueue(doctorName, specialisation, cabinet, maxLength));
-            return true;
-        }
-        return false;
-    }
 
-    public void setList(ArrayList<MedicalQueue> list) {
-        this.list = list;
+    public MedicalQueue createQueue(String doctorName, String specialisation, String cabinet, int maxLength) {
+        if (!getQueueByCabinet(cabinet).isPresent()) {
+            MedicalQueue queue = new MedicalQueue(doctorName, specialisation, cabinet, maxLength);
+            list.add(queue);
+            return queue;
+        }
+        return null;
     }
 }
