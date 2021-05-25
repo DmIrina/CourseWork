@@ -1,12 +1,11 @@
 package com.example.CourseWork.model;
 
-import com.example.CourseWork.helpers.Utils;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// реалізація шаблону Singleton
 public class MQList implements Serializable {
     private static MQList instance = new MQList();
 
@@ -29,18 +28,21 @@ public class MQList implements Serializable {
         return instance;
     }
 
+    // отримати чергу за ім'ям доктора
     public Optional<MedicalQueue> getQueueByDoctor(String doctorName) {
         return list.stream()
                 .filter(medicalQueue -> medicalQueue.getDoctorName().equals(doctorName))
                 .findFirst();
     }
 
+    // отримати чергу за кабінетом
     public Optional<MedicalQueue> getQueueByCabinet(String cabinet) {
         return list.stream()
                 .filter(medicalQueue -> medicalQueue.getCabinet().equals(cabinet))
                 .findFirst();
     }
 
+    // отримати список черг, у які записаний даний пацієнт
     public ArrayList<MedicalQueue> getQueuesWithPatient(String name){
         ArrayList<MedicalQueue> patientList = new ArrayList<>();
         for (MedicalQueue queue : list) {
@@ -49,30 +51,19 @@ public class MQList implements Serializable {
                 patientList.add(queue);
             }
         }
-        //Utils.save(this);
         return patientList;
     }
 
+    // отримати список черг, у які не записаний даний пацієнт
     public ArrayList<MedicalQueue> getQueuesWithoutPatient(String name){
         ArrayList<MedicalQueue> queuesWithoutPatient;
         queuesWithoutPatient = list.stream()
                 .filter(queue -> !queue.getPatient(name).isPresent())
                 .collect(Collectors.toCollection(ArrayList::new));
-       // Utils.save(this);
         return queuesWithoutPatient;
     }
 
-    public ArrayList<MedicalQueue> getOpenQueues() {
-        return (ArrayList<MedicalQueue>) list.stream()
-                .filter(MedicalQueue::isOpen)
-                .collect(Collectors.toList());
-    }
-
-    public void closeQueueByDoctor(String doctorName) {
-        getQueueByDoctor(doctorName).ifPresent(MedicalQueue::close);
-    }
-
-
+    // створення черги
     public MedicalQueue createQueue(String doctorName, String specialisation, String cabinet, int maxLength) {
         if (!getQueueByCabinet(cabinet).isPresent()) {
             MedicalQueue queue = new MedicalQueue(doctorName, specialisation, cabinet, maxLength);

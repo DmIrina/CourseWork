@@ -19,11 +19,7 @@ public class Login extends HttpServlet {
         model = Utils.load();
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
+    // залогінити крристувача відповідно до вибору ролі: лікар чи пацієнт
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -38,12 +34,15 @@ public class Login extends HttpServlet {
             session.setAttribute("username", username);
             getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
-
             if (user.equals("doctor")) {
                 Optional<MedicalQueue> optQueue = model.getQueueByDoctor(username);
                 if (optQueue.isPresent()) {
                     session.setAttribute("queue", optQueue.get());
-                    getServletContext().getRequestDispatcher("/WEB-INF/view/queueManaging.jsp").forward(request, response);
+                    if (optQueue.get().getList().size() != 0 && optQueue.get().isOpen()) {
+                        getServletContext().getRequestDispatcher("/WEB-INF/view/queueManaging.jsp").forward(request, response);
+                    } else {
+                        getServletContext().getRequestDispatcher("/WEB-INF/view/queueCreation.jsp").forward(request, response);
+                    }
                 } else {
                     getServletContext().getRequestDispatcher("/WEB-INF/view/queueCreation.jsp").forward(request, response);
                 }
@@ -56,10 +55,6 @@ public class Login extends HttpServlet {
             }
         }
         Utils.save(model);
-        int k = 1;
     }
 
-    public void destroy() {
-
-    }
 }

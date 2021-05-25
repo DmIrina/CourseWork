@@ -8,15 +8,11 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.Optional;
 
 @WebServlet(name = "CreateQueue", value = "/createQueue")
 public class CreateQueue extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
-
+    // створення черги
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MQList mqList = MQList.getInstance();

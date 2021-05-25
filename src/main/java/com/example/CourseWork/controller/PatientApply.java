@@ -13,11 +13,8 @@ import java.util.Optional;
 
 @WebServlet(name = "PatientApply", value = "/patientApply")
 public class PatientApply extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
-
+    // запис пацієнта в обрані черги
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] ids = request.getParameterValues("id");

@@ -1,12 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: 7
-  Date: 11.05.2021
-  Time: 23:18
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,22 +9,22 @@
 
 <body class="w3-light-grey">
 <div class="w3-container w3-blue-grey w3-opacity w3-right-align">
-    <h1>У вас немає черг на сьогодні!</h1>
+    <h1>You do not have queues</h1>
 </div>
 
 <c:if test="${sessionScope.repeatCreation}">
     <div class="w3-panel w3-orange w3-display-container w3-card-4 w3-round">
-        Черга не створена. Перевірте, чи не зайнятий кабінет!
+        Queue was not made. Check if room is not occupied!
     </div>
 </c:if>
 
 <div class="w3-container w3-padding">
-    Лікар: <c:out value="${sessionScope.username}"/><br>
+    Doctor: <c:out value="${sessionScope.username}"/><br>
 </div>
 
 <form action="createQueue" method="Post" class="w3-selection w3-light-grey w3-padding">
     <div class="w3-container w3-padding">
-        <label>Максимальна кількість пацієнтів у черзі: </label>
+        <label>Max queue length: </label>
         <select name="maxLength">
             <option value="5">5</option>
             <option value="6">6</option>
@@ -45,29 +38,29 @@
             <option value="14">14</option>
             <option value="15">15</option>
         </select> <br>
-        <label>Номер кабінету: </label> <input type="text" name="cabinet"><br>
-        Спеціальність: <input type="text" list="specialisation" name="specialisation"
+        <label>Room №: </label> <input type="text" name="cabinet"><br>
+        Specialisation: <input type="text" list="specialisation" name="specialisation"
                               class="w3-selection w3-light-grey w3-padding"/>
         <datalist id="specialisation">
-            <option value="therapist">терапевт</option>
-            <option value="dentist">стоматолог</option>
-            <option value="surgeon">хірург</option>
-            <option value="ophthalmologist">офтальмолог</option>
-            <option value="neurologist">невропатолог</option>
-            <option value="family doctor">сімейний лікар</option>
-            <option value="gynecologist">гінеколог</option>
-            <option value="ортодонт">ортодонт</option>
-            <option value="психолог">психолог</option>
+            <option value="therapist">therapist</option>
+            <option value="dentist">dentist</option>
+            <option value="surgeon">surgeon</option>
+            <option value="ophthalmologist">ophthalmologist</option>
+            <option value="neurologist">neurologist</option>
+            <option value="family doctor">family doctor</option>
+            <option value="gynecologist">gynecologist</option>
+            <option value="orthodontist">orthodontist</option>
+            <option value="psychologist">psychologist</option>
 
 
         </datalist>
-        <input type="submit" name="create" value="Створити чергу"
+        <input type="submit" name="create" value="Create a queue"
                class="w3-btn w3-blue w3-round-large w3-margin-bottom">
     </div>
 </form>
 <div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">
     <form action="index.jsp">
-        <button class="w3-btn w3-round-large w3-light-grey" type="submit">Повернутися до головної сторінки</button>
+        <button class="w3-btn w3-round-large w3-light-grey" type="submit">Return to main page</button>
     </form>
 </div>
 </body>

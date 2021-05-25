@@ -12,10 +12,6 @@ import java.util.Optional;
 
 @WebServlet(name = "RemovePatient", value = "/removePatient")
 public class RemovePatient extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 
     // видалити з черги пацієнтів за позначеними номерами у черзі
     @Override

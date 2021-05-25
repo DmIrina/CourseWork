@@ -12,11 +12,8 @@ import java.util.Optional;
 
 @WebServlet(name = "QueueService", value = "/queueService")
 public class QueueService extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
-
+    // викликати на прийом наступного пацієнта або закрити чергу для записів
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MQList mqList = MQList.getInstance();
