@@ -12,7 +12,6 @@ import java.io.IOException;
 @WebServlet(name = "CreateQueue", value = "/createQueue")
 public class CreateQueue extends HttpServlet {
 
-    // створення черги
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MQList mqList = MQList.getInstance();

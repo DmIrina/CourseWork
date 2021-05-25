@@ -13,7 +13,6 @@ import java.util.Optional;
 @WebServlet(name = "RemovePatient", value = "/removePatient")
 public class RemovePatient extends HttpServlet {
 
-    // видалити з черги пацієнтів за позначеними номерами у черзі
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] ids = request.getParameterValues("id");
@@ -21,7 +20,7 @@ public class RemovePatient extends HttpServlet {
         String username = String.valueOf(request.getSession().getAttribute("username"));
         Optional<MedicalQueue> queue = mqList.getQueueByDoctor(username);
         if (ids != null && ids.length > 0) {
-            for (String item: ids) {
+            for (String item : ids) {
                 int num = Integer.parseInt(item);
                 queue.ifPresent(q -> q.removeByNum(num));
             }

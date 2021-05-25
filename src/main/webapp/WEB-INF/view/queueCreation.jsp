@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -40,7 +40,7 @@
         </select> <br>
         <label>Room №: </label> <input type="text" name="cabinet"><br>
         Specialisation: <input type="text" list="specialisation" name="specialisation"
-                              class="w3-selection w3-light-grey w3-padding"/>
+                               class="w3-selection w3-light-grey w3-padding"/>
         <datalist id="specialisation">
             <option value="therapist">therapist</option>
             <option value="dentist">dentist</option>

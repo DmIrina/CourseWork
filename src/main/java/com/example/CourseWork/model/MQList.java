@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-// реалізація шаблону Singleton
 public class MQList implements Serializable {
     private static MQList instance = new MQList();
 
@@ -28,22 +27,19 @@ public class MQList implements Serializable {
         return instance;
     }
 
-    // отримати чергу за ім'ям доктора
     public Optional<MedicalQueue> getQueueByDoctor(String doctorName) {
         return list.stream()
                 .filter(medicalQueue -> medicalQueue.getDoctorName().equals(doctorName))
                 .findFirst();
     }
 
-    // отримати чергу за кабінетом
     public Optional<MedicalQueue> getQueueByCabinet(String cabinet) {
         return list.stream()
                 .filter(medicalQueue -> medicalQueue.getCabinet().equals(cabinet))
                 .findFirst();
     }
 
-    // отримати список черг, у які записаний даний пацієнт
-    public ArrayList<MedicalQueue> getQueuesWithPatient(String name){
+    public ArrayList<MedicalQueue> getQueuesWithPatient(String name) {
         ArrayList<MedicalQueue> patientList = new ArrayList<>();
         for (MedicalQueue queue : list) {
             Optional<Record> patient = queue.findByName(name);
@@ -54,8 +50,7 @@ public class MQList implements Serializable {
         return patientList;
     }
 
-    // отримати список черг, у які не записаний даний пацієнт
-    public ArrayList<MedicalQueue> getQueuesWithoutPatient(String name){
+    public ArrayList<MedicalQueue> getQueuesWithoutPatient(String name) {
         ArrayList<MedicalQueue> queuesWithoutPatient;
         queuesWithoutPatient = list.stream()
                 .filter(queue -> !queue.getPatient(name).isPresent())
@@ -63,7 +58,6 @@ public class MQList implements Serializable {
         return queuesWithoutPatient;
     }
 
-    // створення черги
     public MedicalQueue createQueue(String doctorName, String specialisation, String cabinet, int maxLength) {
         if (!getQueueByCabinet(cabinet).isPresent()) {
             MedicalQueue queue = new MedicalQueue(doctorName, specialisation, cabinet, maxLength);

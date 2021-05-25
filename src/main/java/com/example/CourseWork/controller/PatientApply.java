@@ -14,14 +14,13 @@ import java.util.Optional;
 @WebServlet(name = "PatientApply", value = "/patientApply")
 public class PatientApply extends HttpServlet {
 
-    // запис пацієнта в обрані черги
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] ids = request.getParameterValues("id");
         MQList mqList = MQList.getInstance();
         String username = String.valueOf(request.getSession().getAttribute("username"));
         if (ids != null && ids.length > 0) {
-            for (String doctorName: ids) {
+            for (String doctorName : ids) {
                 Optional<MedicalQueue> queue = mqList.getQueueByDoctor(doctorName);
                 queue.ifPresent(medicalQueue -> medicalQueue.addLast(username));
             }

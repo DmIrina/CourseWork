@@ -1,13 +1,13 @@
 package com.example.CourseWork.helpers;
 
 import com.example.CourseWork.model.MQList;
+
 import java.io.*;
 
 public class Utils {
     public final static String filePath = "e://model.dat";
 
-    // запис до файлу
-    public static void save(MQList model){
+    public static void save(MQList model) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(model);
         } catch (Exception e) {
@@ -15,7 +15,6 @@ public class Utils {
         }
     }
 
-    // зчитування або запис до файлу
     public static MQList load() {
         MQList model = MQList.getInstance();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Utils.filePath))) {

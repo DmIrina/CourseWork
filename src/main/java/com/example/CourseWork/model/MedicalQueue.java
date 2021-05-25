@@ -5,17 +5,16 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 public class MedicalQueue implements Serializable {
-    private String doctorName;          // прізвище доктора - хазяїна
-    private String specialisation;      // фах доктора
-    private String cabinet;             // номер кабінету прийому
-    private int currentNum = 0;         // поточний номер черги при додаванні
-    private int maxLength = 10;         // максимальна довжина черги
-    private boolean closed = false;     // стан черги (відкрита по дефолту)
-    private Record servedPatient;       // пацієнт на прийомі
-    private LinkedList<Record> list;    // черга з пацієнтів
+    private String doctorName;
+    private String specialisation;
+    private String cabinet;
+    private int currentNum = 0;
+    private int maxLength = 10;
+    private boolean closed = false;
+    private Record servedPatient;
+    private LinkedList<Record> list;
 
 
-    // створення нової черги, максимальна кількість пацієнтів - 10
     public MedicalQueue(String doctorName, String specialisation, String cabinet) {
         this.list = new LinkedList<>();
         this.doctorName = doctorName;
@@ -23,7 +22,6 @@ public class MedicalQueue implements Serializable {
         this.cabinet = cabinet;
     }
 
-    // створення нової черги, максимальна кількість пацієнтів задається в параметрі maxLength
     public MedicalQueue(String doctorName, String specialisation, String cabinet, int maxLength) {
         this(doctorName, specialisation, cabinet);
         this.maxLength = maxLength;
@@ -53,11 +51,10 @@ public class MedicalQueue implements Serializable {
         return list;
     }
 
-    public int getCurrentNum(){
+    public int getCurrentNum() {
         return currentNum;
     }
 
-    // заняття місця у черзі
     public int addLast(String name) {
         if (closed == false) {
             list.addLast(new Record(name, ++currentNum));
@@ -70,44 +67,37 @@ public class MedicalQueue implements Serializable {
         }
     }
 
-    // команда «наступний» (видалити з голови черги) - викликати пацієнта на прийом
     public void next() {
         servedPatient = list.removeFirst();
     }
 
-    // видалити з черги пацієнта за номером у черзі
     public void removeByNum(int num) {
         Optional<Record> patient = findByNum(num);
         patient.ifPresent(p -> list.remove(p));
     }
 
-    // закрити чергу від можливості подальших записів
     public void close() {
         closed = true;
     }
 
-    // перегляд інформації про своє місце в черзі
     public Optional<Record> findByName(String name) {
         return list.stream()
                 .filter(r -> r.getName().equals(name))
                 .findFirst();
     }
 
-    // знайти пацієнта за вказаним номером у черзі
     public Optional<Record> findByNum(int num) {
         return list.stream()
                 .filter(r -> r.getNumInQueue() == num)
                 .findFirst();
     }
 
-    // знайти пацієнта за даним ім'ям
     public Optional<Record> getPatient(String name) {
         return list.stream()
                 .filter(record -> record.getName().equals(name))
                 .findFirst();
     }
 
-    // отримати номер черги даного пацієнта
     public int getNumInQueue(String name) {
         int num = 0;
         Optional<Record> patient = getPatient(name);
@@ -117,7 +107,6 @@ public class MedicalQueue implements Serializable {
         return num;
     }
 
-    // чи відкрита черга для запису?
     public boolean isOpen() {
         return !closed;
     }
